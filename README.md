@@ -121,7 +121,7 @@
   }
   ```
   - JSON dosyasındaki "name" proje adını, "versiyon" proje versiyonunu, "description" projenin açıklama bölümüdür. "main" projenin başlangıç noktasını, "author" projeyi yazan kişiyi, "license" projenin lisansını gösterir.
-  - "dependencies" proje dosyasının çalışması için gerekli olan framework'leri gösterir. Burada express.js'e bağlı olduğunu ve versiyonunu göstermektedir.
+  - Buradaki "dependencies" proje dosyasının çalışması için gerekli olan framework'leri gösterir. Burada express.js'e bağlı olduğunu ve versiyonunu göstermektedir.
   - Versiyon gösterimindeki "^" işareti minör ve patch kısmınındaki güncellemeler otomatik olarak yapılacağını belirtmektedir.
   - Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development kısmında kullanılacağı için production kısmında değil de development kısmında gösteriliyor.
   - Örnekte de görüldüğü gibi json dosyası ile proje dosyalarımız hakkında birçok bilgiyi basit bir şekilde tutabiliriz.   
