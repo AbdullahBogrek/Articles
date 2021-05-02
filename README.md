@@ -126,7 +126,7 @@
   - Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development kısmında kullanılacağı için production kısmında değil de development kısmında gösteriliyor.
   - Örnekte de görüldüğü gibi json dosyası ile proje dosyalarımız hakkında birçok bilgiyi basit bir şekilde tutabiliriz.
   
-  ## :books: Kaynaklar (Resources)
+  ## :books: Kaynaklar (References)
  - [JSON website](https://www.json.org/json-en.html)
  - [Python documents](https://docs.python.org/3/library/json.html)
  - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)
