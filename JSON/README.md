@@ -4,7 +4,7 @@
   {"ad":"Abdullah", "soyad":"Bogrek"}
   ```
 - Yapısı XML'e benzerdir. Fakat XML'e göre daha hızlı, daha az yer kaplar ve daha okunabilirdir. </br>
-    XML                                          
+    XML
     ```XML
     <employees>
       <employee>
@@ -28,13 +28,13 @@
         "surname" : "Bogrek",
         "age" : 21,
         "married" : false 
-      },             
+      },
       {
         "name" : "Omer",
         "surname" : "Faruk",
         "age" : 20,
-        "married" : False 
-      }                   
+        "married" : false 
+      }
                     ]
     }
     ```
@@ -47,7 +47,7 @@
   ```
   Array
   ```JSON
-  "employee":[      
+  "employee":[
   {"name" : "Abdullah", "surname" : "Bogrek", "age" : 21},
   {"name" : "Omer", "surname" : "Faruk", "age" : 20}
   ]
@@ -99,26 +99,34 @@
   ```
   
   ## Package.json
-  JSON'u daha iyi anlamak için gerçek bir örnekte inclemek daha yararlı olacaktır. Nodejs'in kurulumu ile gelen NPM'i "init" ederek oluşturduğumuz package.json dosyasını inceleyelim. Burada nodejs kullanılarak oluşturulmaya çalışılan basit bir blog sitesinin json dosyası bulunmaktadır. Bu dosya, proje ile dependencies ve versiyonları ilgili genel bilgir verir.
+  JSON'u daha iyi anlamak için gerçek bir örnekte inclemek daha yararlı olacaktır. Nodejs'in kurulumu ile gelen NPM'i "init" ederek oluşturduğumuz package.json dosyasını inceleyelim. Burada nodejs kullanılarak oluşturulmaya çalışılan basit bir blog sitesinin json dosyası bulunmaktadır. Bu dosya, proje ile dependencies ve versiyonları ilgili genel bilgiler verir.
   
   ```json 
-  {
-    "name": "nodeblog",                                       // Proje adı.
-    "version": "1.0.0",                                       // Proje versiyonu.
-    "description": "Node Blog Application",                   // Proje'nin açıklama bölümü.
-    "main": "index.js",                                       // Proje'nin başlangıç noktasını.
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"   // Komut dosyası komutlarını içeren bir sözlüktür.
-       },
-    "author": "Bogrek",                                       // Projeyi yazan kişi.
-    "license": "ISC",                                         // Projenin lisansı.
-    "dependencies": {                                         // Proje dosyalarının çalışması için gerekli olan framework'leri gösterir.  
-      "express": "^4.17.1"                                    // Proje'nin express.js'e bağlı olduğunu ve versiyonunu belirtir.
-    },                                                     // Versiyon gösterimindeki "^" işareti minör ve patch değişikliklerinin otomatik yapılacağını gösterir.
-    "devDependencies": {                                      // Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development ...
-      "nodemon": "^2.0.7"                                     // kısmında kullanılacağı için production kısmında gösterilmiyor.
-   }
-  }
+	{
+	  "name": "nodeblog",
+	  "version": "1.0.0",
+	  "description": "Node Blog Application", 
+	  "main": "index.js",
+	  "scripts": {
+	    "test": "echo \"Error: no test specified\" && exit 1"
+	     },
+	  "author": "Bogrek",
+	  "license": "ISC",
+	  "dependencies": {
+	    "express": "^4.17.1"
+	  },
+	  "devDependencies": {
+	    "nodemon": "^2.0.7"
+	  }
+	}
   ```
+  - JSON dosyasındaki "name" proje adını, "versiyon" proje versiyonunu, "description" projenin açıklama bölümüdür. "main" projenin başlangıç noktasını, "author" projeyi yazan kişiyi, "license" projenin lisansını gösterir.
+  - Buradaki "dependencies" proje dosyasının çalışması için gerekli olan framework'leri gösterir. Burada express.js'e bağlı olduğunu ve versiyonunu göstermektedir.
+  - Versiyon gösterimindeki "^" işareti minör ve patch kısmınındaki güncellemeler otomatik olarak yapılacağını belirtmektedir.
+  - Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development kısmında kullanılacağı için production kısmında değil de development kısmında gösteriliyor.
+  - Örnekte de görüldüğü gibi json dosyası ile proje dosyalarımız hakkında birçok bilgiyi basit bir şekilde tutabiliriz.
   
-  
+  ## :books: Kaynaklar (References)
+ - [JSON website](https://www.json.org/json-en.html)
+ - [Python documents](https://docs.python.org/3/library/json.html)
+ - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)
