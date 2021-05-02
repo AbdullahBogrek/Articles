@@ -33,7 +33,7 @@
         "name" : "Omer",
         "surname" : "Faruk",
         "age" : 20,
-        "married" : false 
+        "married" : False 
       }                   
                     ]
     }
@@ -103,26 +103,22 @@
   
   ```json 
   {
-    "name": "nodeblog",                                      
-    "version": "1.0.0",                                      
-    "description": "Node Blog Application",                   
-    "main": "index.js",                                       
+    "name": "nodeblog",                                       // Proje adı.
+    "version": "1.0.0",                                       // Proje versiyonu.
+    "description": "Node Blog Application",                   // Proje'nin açıklama bölümü.
+    "main": "index.js",                                       // Proje'nin başlangıç noktasını.
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"  
+      "test": "echo \"Error: no test specified\" && exit 1"   // Komut dosyası komutlarını içeren bir sözlüktür.
        },
-    "author": "Bogrek",                                       
-    "license": "ISC",                                         
-    "dependencies": {                                        
-      "express": "^4.17.1"                                   
-    },                                                    
-    "devDependencies": {                                      
-      "nodemon": "^2.0.7"                                    
+    "author": "Bogrek",                                       // Projeyi yazan kişi.
+    "license": "ISC",                                         // Projenin lisansı.
+    "dependencies": {                                         // Proje dosyalarının çalışması için gerekli olan framework'leri gösterir.  
+      "express": "^4.17.1"                                    // Proje'nin express.js'e bağlı olduğunu ve versiyonunu belirtir.
+    },                                                     // Versiyon gösterimindeki "^" işareti minör ve patch değişikliklerinin otomatik yapılacağını gösterir.
+    "devDependencies": {                                      // Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development ...
+      "nodemon": "^2.0.7"                                     // kısmında kullanılacağı için production kısmında gösterilmiyor.
    }
   }
   ```
-  - JSON dosyasındaki "name" proje adını, "versiyon" proje versiyonunu, "description" projenin açıklama bölümüdür. "main" projenin başlangıç noktasını, "author" projeyi yazan kişiyi, "license" projenin lisansını gösterir.
-  - Buradaki "dependencies" proje dosyasının çalışması için gerekli olan framework'leri gösterir. Burada express.js'e bağlı olduğunu ve versiyonunu göstermektedir.
-  - Versiyon gösterimindeki "^" işareti minör ve patch kısmınındaki güncellemeler otomatik olarak yapılacağını belirtmektedir.
-  - Nodemon paketini de dependencies kısmında kullanabilirdik fakat projenin sadece development kısmında kullanılacağı için production kısmında değil de development kısmında gösteriliyor.
-  - Örnekte de görüldüğü gibi json dosyası ile proje dosyalarımız hakkında birçok bilgiyi basit bir şekilde tutabiliriz.   
+  
   
