@@ -68,9 +68,9 @@ Post.findByIdAndUpdate('[id value]', {
 	title: "New Post Title"
 }, (error, post) => {
 	console.log(error, post)
-}
+})
  ```
-  Update işlemi gibi sorgulama yapılarak bulunan verileri silebiliriz.
+  Update işlemi gibi sorgulama yapılarak bulunan verileri silebiliriz. </br>
   Delete (Veri Silme) : Sorgulama yapıp istenen veri ya da verileri bulup onları silebilir. Bunun için 'deleteOne', 'findByIdAndRemove', 'findOneAndRemove' gibi metotları kullanarak sorgulanan verileri silebiliriz. </br>
  ``` javascript
 Post.findByIdAndDelete('[id value]', (error, post) => {
