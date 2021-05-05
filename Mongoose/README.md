@@ -32,7 +32,7 @@ const PostSchema = new mongoose.Schema({
  Bu modeli kullanabilmek için mongoose'un model metotu kullanılır. Kullanıma göre modeli export edebileceğiniz gibi modeli bir değişken ile birlikte de kullanılabilir.
  ```javascript
 module.exports = mongoose.model('Post', PostSchema)
-		  	or
+		  		or
 let Post = mongoose.model('Post', PostSchema);
  ```
  Bu işlemden sonra modelin ismi ile 'CRUD' işlemleri yapılabilir. </br>
