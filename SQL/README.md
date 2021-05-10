@@ -1,4 +1,4 @@
-# SQL
+# _SQL_
 - Yapısal Sorgu Dilidir (STRUCTURED QUERY LANGUAGE) .
 - Temel kullanım alanları veritabanlarıdır. 
 - Verileri yönetmek için kullanılan bir dildir.
@@ -18,9 +18,10 @@ Bu yazıda Microsoft'un geliştirdiği SQL Server kullanılacaktır. Kurulumu [b
  Microsoft tarafından geliştirilmiş ilişkisel veri tabanı yönetim sistemidir (RDBMS) . Microsoft çeşitli sürümlerele kullanıma sunmuştur. Express versiyonu ücretsizdir. Fakat veri tabanın boyutu 10GB'ı geçemez ya da veri tabanı sunucusu 1GB'dan fazla RAM kullanamaz gibi belli kullanım limitleri vardır. Ayrıca Microsoft'un developerlar için yayınladığı "developer" sürümünü ile tüm özelliklerini kullanabiliriz. Bu sürümü product ortamlarda kullanamayız.
  
   Hızlı ve kararlı bir veritabanı yönetim sistemidir, SQL desteklediği gibi NoSQL de desteklemektedir. SQL Server ile veri işleme ve depolama, veri indeksleme ve sorgulama, veri tabanı yönetimi, veri akışı optimizasyonu, veri raporlama gibi işlemleri yapmamıza olanak sağlar. 
+  
   ## _SQL Server Management Studio_
   Microsoft'un geliştirdiği bir veri tabanı editördür. Sunucuları genelde "SQL Server Management Studio" ile kullanılır. Yukarıda da bahsedildiği gibi veri tabanı oluşturma, tasarlama, veri sorgulama, veri ekleme ya da çıkarma, rapolarma gibi işlemleri T-SQL sorgu dili kullanarak yapabiliriz.
- > T-SQL : Transact-SQL yani T-SQL  Microsoft SQL Server veri tabanı için kullanılan sorgulama diline verilen isimdir. Fakat MYSQL, Oracle SQL gibi veri tabanlarında da aynı dil yapısı ufak farklılıklarla kullanılır. SQL komutları "Data Manipulation Language-DML", "Data Definition Language-DDL" ve "Data Control Language-DCL" olarak üçe ayrılır.
+ > T-SQL : Transact-SQL yani T-SQL, Microsoft SQL Server veri tabanı için kullanılan sorgulama diline verilen isimdir. Fakat MYSQL, Oracle SQL gibi veri tabanlarında da aynı dil yapısı ufak farklılıklarla kullanılır. SQL komutları "Data Manipulation Language-DML", "Data Definition Language-DDL" ve "Data Control Language-DCL" olarak üçe ayrılır. Aşağıda daha ayrıntılı bir şekilde açıklanacaktır.
  
  ## _Server Bağlantısı_
 
@@ -29,10 +30,10 @@ Bu yazıda Microsoft'un geliştirdiği SQL Server kullanılacaktır. Kurulumu [b
  - Authentication : Windows Authentication, SQL Server Authentication gibi doğrulama yöntemleri ile server'a bağlanılabilir. Windows Authentication sadece 'server name' ile yapılan bağlantıyı temsil ederken, SQL Server Authentication ile login ve password ile yapılan bağlantıyı temsil eder.
  
 
-## _DATABASE_
+## _Database_
 SQL Server Management Studio ile oluşturulan veri tabanları "database" sekmesinin altında yer alır. Veri tabanları, tablolar veya sorgular arayüz üzerinden oluşturulabileceği gibi komutlarla da oluşturulablilir. Oluşturulan veri tabanlarında iki tür veri vardır. Birincisi satırlardan oluşan veriler, ikincisi ise log'lardır. 
  
- ## _VERİ TİPLERİ_
+ ## _Veri Tipleri_
 Veri tabanlarında oluşturulan verilerin tipleri çok iyi seçilmelidir. Performans için oldukça önemli bir konudur. Bundan dolayı bütün veri tiplerine, boyutlarına hakim olmalıyız.
 
 | Int Veri Tipleri | Özellikleri |
@@ -51,6 +52,22 @@ Veri tabanlarında oluşturulan verilerin tipleri çok iyi seçilmelidir. Perfor
 | datetime | Tarih ve saat tipinde veri saklamaya yarar. “01-01-1753” ile “31-12-9999” tarihleri arasında bir değerlri yyyy-mm-dd hh:mm:ss[.nnn] şeklinde saklar. |
 | datetime2 | Datetime ile tek farkı 7 byte'lık depolama alanı kullanır. YYYY-MM-DD hh:mm:ss[.nnnnnnn] şeklinde saklar.  |
 | smalldatetime |  DateTime veri tipinin daha az kapsamlı halidir. “01-01-1900” ile “06-06-2079” tarih aralığını destekler ve nano saniye bilgisi içermez. |
+| char | Sabit uzunlukta karakter dizilerini tutar. Char(n) şeklinde kullanılır ve 1 ile 8000 arasında değer alır. |
+| varchar | Char veri tipi ile tek farkı karakter sayısı daha kısa girilirse boş alanları hafızadan atar. Böylece hafızadan tasarruf edilmiş olur. Bu da 1 – 8000 karakter arasında karakter tutabilir. |
+| nchar | Char ile aynı yapıdadır. Tek farkı char’ın aksine Unicode desteği sağlamasıdır. 1 ile 4000 karakter arasında veri tutar. |
+| nvarchar | Varchar’ın Unicode karakter destekleyen halidir. 1 ile 4000 karakter arasında veri tutar. |
+| varbinary | Değişken uzunluktaki binary verileri tutar. 1 ile 8000 arasında değer alabilir. |
+| smallmoney | Money veri tipi ile aynı fakat +- 214 bin aralığındaki veriler için kullanılır. |
+
+> ÖNEMLİ : Microsoft, ntext, text ve image veri türleri, SQL Server'ın gelecekteki bir sürümünde kaldırılacağını belirtti. Bu veri türlerinin kullanımından kaçınmamız gerektiğini ve şu anda bunları kullanan uygulamaların değiştirilmesi ve bunun yerine nvarchar (max), varchar (max) ve varbinary (max) kullanılması tavsiye ediliyor. Bundan dolayı bu tabloda bu veri tiplerine yer verilmemiştir.
+
+## _T-SQL_
+
+Transact-SQL yani T-SQL, Microsoft SQL Server veri tabanı için kullanılan sorgulama diline verilen isimdir. Microsoft kendi platformu için SQL üzerine yaptığı iyileştirmeleri standart haline getirmiş ve T-SQL ismini vermiştir. Transact-SQL‘in kısaltması olan T-SQL günümüz veritabanı yönetim ihtiyaçlarının tamamını karşılayabilecek yeterliliğe sahiptir. Fakat MYSQL, Oracle SQL gibi veri tabanlarında da aynı dil yapısı çeşitli farklılıklarla kullanılır. T-SQL ile veritabanı üzerinde işlem yapabilmek için SQL komutları "Data Manipulation Language-DML", "Data Definition Language-DDL" ve "Data Control Language-DCL" olarak üçe ayrılır.
+
+## Refrecenses
+
+- [Microsoft Docs] 
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -58,19 +75,4 @@ Veri tabanlarında oluşturulan verilerin tipleri çok iyi seçilmelidir. Perfor
    [MYSQL]: <https://www.mysql.com/>
    [Oracle SQL]: <https://www.oracle.com/tr/database/technologies/appdev/sqldeveloper-landing.html>
    [PostgreSQL]: <https://www.postgresql.org/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+   [Microsoft Docs]: <https://docs.microsoft.com/en-us/sql/t-sql/data-types/data-types-transact-sql?view=sql-server-ver15>
