@@ -62,6 +62,28 @@ Veri tabanlarında oluşturulan verilerin tipleri çok iyi seçilmelidir. Perfor
 
 > ÖNEMLİ : Microsoft, ntext, text ve image veri türleri, SQL Server'ın gelecekteki bir sürümünde kaldırılacağını belirtti. Bu veri türlerinin kullanımından kaçınmamız gerektiğini ve şu anda bunları kullanan uygulamaların değiştirilmesi ve bunun yerine nvarchar (max), varchar (max) ve varbinary (max) kullanılması tavsiye ediliyor. Bundan dolayı bu tabloda bu veri tiplerine yer verilmemiştir.
 
+
+## RDBM (Relational Database Management System) 
+Günümüzde verilerin her geçen gün katlanarak büyümesi sebebiyle, verilerin depolanması zorluklar oluşturmaktadır. Bu depolama ve analiz işlemlerini kolaylaştırmak amacıyla ortaya çıkan veri tabanı çeşitlerinden en yaygın olanı  ilişkisel veri tabanı türüdür.
+
+Veri tabanları genellikle bir veri tabanı yönetim sistemi ile çalıştırılır. Veri tabanı yönetim sistemi kullanıcılara ve programcılara veri oluşturmayı, veri silmeyi, güncellemeyi ve yönetmeyi sağlar. Bu sistemler çoğunlukla bir arayüze sahiptir ve bu arayüz ile istenilen işlemler kolayca yapılabilir. **MYSQL**, **Oracle SQL**, **MSSQL** gibi veri tabanları ilişkisel veri tabanını kullanır. 
+
+Doğru yönetilen, doğru indexlenmiş bir veri tabanı ile istenen veriye hızlı bir şekilde erişebilmenin yanında hafızayı da verimli bir şeklide kullanılmış olur. Büyük veriler ile uğraşan şirketler için bunlar çok önemli konulardır. Bunun için **normalizasyon** uygulanmalıdır.
+
+>**Normalizasyon :** 
+	Güçlü ve hızlı bir veri tabanı oluşturmanın en önemli adımlarından biri normalizasyon yapmaktır. Bunun sebebi veri tabanındaki veri tekrarlarını ortadan kaldırılarak ve veri tutarlılığını (doğruluğunu) artırarak büyük verilerle çalışılsa bile hem hafızadan hem de zamandan tasarruf edilmiş olunacak.
+> 
+> Veri tekrarını önlemek için her veri türü için ayrı tablolar oluşturulup, bu tablolar birbiri ile ilişkilendirilmelidir. Böylece indexlemeye uygun hale gelen tablolar, sorgu işlemlerine çok daha hızlı yanıt verir.
+
+
+Tablolarda ilişkilendirme yapılırken **key** kullanılarak yapılır. Bu key'ler sütunlarda kullanılır ve **Primary Key**, **Foreign Key**, **Super Key** gibi çeşitleri vardır. Bu tarz ilişkilendirmeler yapılırken diagramlar kullanılır.
+- **Primary Key** : Tablodaki herhangi bir sütun primary key olarak atanırsa o sütundaki  veriler asla aynı olamaz yani tekrar eden değerler alamaz. Kısacası sütundaki her satırın kendine ait bir değeri olmalıdır. Bunun sebebi, veri tabanında aramalar yapıldığında veri tabanının ilk baktığı yer olmasıdır. Bundan dolayı aynı değerden bir ya da daha fazla olması   belirsizliğe sebep olur. Buna en güzel örnek T.C. kimlik numralarımızdır. Her vatandaşın kendine özel bir numarası bulunmaktadır.  
+- **Foreign Key** : Bir veri tablosuna girilebilecek değerleri başka bir veri tablosundaki alanlarla ilişkilendirmeye yarar. Kısacası, başka bir tablonun birincil anahtarının bir diğer tablo içerisinde yer almasıdır. Foreign Key ile aslında veri tutarlılığı sağlanmış olur. İlişkili tabloda olmayan herhangi bir veri diğer tabloda yazılamayacak.
+- **Unique Key** :  Tablodaki herhangi bir sütuna verilebilecek bu key ile o sütundaki verilerin benzersiz olmasını, aynı değerin tekrardan girilmesi engellenir. İşlevi Primary Key ile benzerlik taşısa da, en önemli farklılık Unique Key’in Null değeri alabilmesidir.
+- **Composite Key** : Bazı durumlarda 1 tane Primary Key tek başına kullanmak yeterli olmayabilir. Birden fazla alanın birlikte Primary Key gerektiği durumlarda Primary Key olarak ayarlaması gerekir. Bu durumada Composite Key kullanılır. Genellikle tablolar arasında many to many ilişki olduğu zamanlar kullanılır.
+
+
+
 # _T-SQL_
 
 Transact-SQL yani T-SQL, Microsoft SQL Server veri tabanı için kullanılan sorgulama diline verilen isimdir. Microsoft kendi platformu için SQL üzerine yaptığı iyileştirmeleri standart haline getirmiş ve T-SQL ismini vermiştir. Transact-SQL‘in kısaltması olan T-SQL günümüz veritabanı yönetim ihtiyaçlarının tamamını karşılayabilecek yeterliliğe sahiptir. Fakat MYSQL, Oracle SQL gibi veri tabanlarında da aynı dil yapısı çeşitli farklılıklarla kullanılır. T-SQL ile veritabanı üzerinde işlem yapabilmek için SQL komutları "Data Manipulation Language-DML", "Data Definition Language-DDL" ve "Data Control Language-DCL" olarak üçe ayrılır.
@@ -151,26 +173,6 @@ Veri kontrol dili anlamına gelir. Veri tabanı ile ilişkili kullanıcıların 
 	> REVOKE SELECT ON tablo_adi FROM kullanici_adi
     > --- Bu komut ile kullanıcının SELECT hakkını tamamen kaldırılabilir.
 	> ```
-
-## RDBM (Relational Database Management System) 
-Günümüzde verilerin her geçen gün katlanarak büyümesi sebebiyle, verilerin depolanması zorluklar oluşturmaktadır. Bu depolama ve analiz işlemlerini kolaylaştırmak amacıyla ortaya çıkan veri tabanı çeşitlerinden en yaygın olanı  ilişkisel veri tabanı türüdür.
-
-Veri tabanları genellikle bir veri tabanı yönetim sistemi ile çalıştırılır. Veri tabanı yönetim sistemi kullanıcılara ve programcılara veri oluşturmayı, veri silmeyi, güncellemeyi ve yönetmeyi sağlar. Bu sistemler çoğunlukla bir arayüze sahiptir ve bu arayüz ile istenilen işlemler kolayca yapılabilir. **MYSQL**, **Oracle SQL**, **MSSQL** gibi veri tabanları ilişkisel veri tabanını kullanır. 
-
-Doğru yönetilen, doğru indexlenmiş bir veri tabanı ile istenen veriye hızlı bir şekilde erişebilmenin yanında hafızayı da verimli bir şeklide kullanılmış olur. Büyük veriler ile uğraşan şirketler için bunlar çok önemli konulardır. Bunun için **normalizasyon** uygulanmalıdır.
-
->**Normalizasyon :** 
-	Güçlü ve hızlı bir veri tabanı oluşturmanın en önemli adımlarından biri normalizasyon yapmaktır. Bunun sebebi veri tabanındaki veri tekrarlarını ortadan kaldırılarak ve veri tutarlılığını (doğruluğunu) artırarak büyük verilerle çalışılsa bile hem hafızadan hem de zamandan tasarruf edilmiş olunacak.
-> 
-> Veri tekrarını önlemek için her veri türü için ayrı tablolar oluşturulup, bu tablolar birbiri ile ilişkilendirilmelidir. Böylece indexlemeye uygun hale gelen tablolar, sorgu işlemlerine çok daha hızlı yanıt verir.
-
-
-Tablolarda ilişkilendirme yapılırken **key** kullanılarak yapılır. Bu key'ler sütunlarda kullanılır ve **Primary Key**, **Foreign Key**, **Super Key** gibi çeşitleri vardır. Bu tarz ilişkilendirmeler yapılırken diagramlar kullanılır.
-- **Primary Key** : Tablodaki herhangi bir sütun primary key olarak atanırsa o sütundaki  veriler asla aynı olamaz yani tekrar eden değerler alamaz. Kısacası sütundaki her satırın kendine ait bir değeri olmalıdır. Bunun sebebi, veri tabanında aramalar yapıldığında veri tabanının ilk baktığı yer olmasıdır. Bundan dolayı aynı değerden bir ya da daha fazla olması   belirsizliğe sebep olur. Buna en güzel örnek T.C. kimlik numralarımızdır. Her vatandaşın kendine özel bir numarası bulunmaktadır.  
-- **Foreign Key** : Bir veri tablosuna girilebilecek değerleri başka bir veri tablosundaki alanlarla ilişkilendirmeye yarar. Kısacası, başka bir tablonun birincil anahtarının bir diğer tablo içerisinde yer almasıdır. Foreign Key ile aslında veri tutarlılığı sağlanmış olur. İlişkili tabloda olmayan herhangi bir veri diğer tabloda yazılamayacak.
-- **Unique Key** :  Tablodaki herhangi bir sütuna verilebilecek bu key ile o sütundaki verilerin benzersiz olmasını, aynı değerin tekrardan girilmesi engellenir. İşlevi Primary Key ile benzerlik taşısa da, en önemli farklılık Unique Key’in Null değeri alabilmesidir.
-- **Composite Key** : Bazı durumlarda 1 tane Primary Key tek başına kullanmak yeterli olmayabilir. Birden fazla alanın birlikte Primary Key gerektiği durumlarda Primary Key olarak ayarlaması gerekir. Bu durumada Composite Key kullanılır. Genellikle tablolar arasında many to many ilişki olduğu zamanlar kullanılır.
-
 
 
 ## References
