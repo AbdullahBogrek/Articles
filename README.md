@@ -26,7 +26,7 @@
       {
         "name" : "Abdullah",
         "surname" : "Bogrek",
-        "age" : 21,
+        "age" : 22,
         "married" : false 
       },
       {
