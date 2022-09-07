@@ -327,4 +327,183 @@
         ```
         - Yukarıda da görüldüğü gibi `object state` güncellenirken var olan object `...address` yapısındaki gibi korunur ve diğer değer üzerine eklenerek arayüz baştan render edilir.
 
-- Devam edecek...
+## Lifecycle
+
+- Component'ler, `React.Component` nesnesinin temel bir sınıfıdır. Temel bir sınıf olduğu için, bu nesnenin bir alt sınıfı **extends** edilerek tanımlanr. 
+
+    ```js
+        class firstComponent extends React.Component{
+            render() {
+                return <h1>Hello World!</h1>;
+            }
+        }
+    ```
+
+    Ya da 
+
+    ```js
+        function Welcome(props) {
+            return <h1>Hello, {props.name}</h1>;
+        }
+    ```
+
+- React'ın önceki versiyonunda bu işlemler class component'ler ile yapılırken özel tanımlı fonksiyonlar vardı. React'ın yeni versiyonu ile birlikte lifecycle yapısı kullanılarak daha temiz bir kod yazılabiliyor.
+
+- Her component'in **lifecycle** metotları vardır. Bu döngü, component'lerin oluşturulmasını(initialization), DOM'a bağlanmasını(mounting), DOM üzerinde güncellenmesini(updating) ve DOM üzerinden kaldırılması(unmount) ifade etmektedir. Örneğin, component'in istenilen bir anı yakalanarak ona göre veri çekme işlemi gerçekleştirilebilir. Bu sayede bir butona basmak ya da kullanıcı ile etkileşime girmeye gerek olmayabilir.
+
+    - Component initialize edilirken ve DOM'a bağlanırken kullanılan 4 metot vardır. Bunlar:
+
+        - `constructor()`: Başlangıç **state**'i tanımlamak ve bir fonksiyonu component'e bind etmek için en uygun yer constructor'dur. Bu iki tanımlamaya ihtiyac yoksa constructor metodu tanımlanmayabilir.
+
+            ```js
+            constructor(props) {
+                super(props);
+                this.state = {
+                    date: new Date()
+                };
+            }
+            ```
+
+        - `componentWillMount()`:  Real DOM'a aktarılmadan önceki andır. Yani ``render`` işleminden hemen önceki tetiklenen Event’tir. Aynı **constructor** gibi özel tanımlı bir fonksiyondur.
+
+        - `render()`: Bu metot, `React.Component` class'ı için olmazsa olmaz, çağrılmazsa sorun çıkaracak tek metottur.
+
+        - `componentDidMount()`: Component DOM'a render edildikten sonra çalışan Event’dir. Yani render işleminden sonra çalışır. ComponentDidMount’ta `setState` işlemi yapılırsa tekrardan **Render** işlemi yapılır. 
+
+    - Component mounting edilirken yani DOM'a bağlanırken kullanılan 4 metot vardır. Bunlar:
+
+        - `componentWillReceiveProps()`: Eğer bir component'te props varsa ve bu props’u değiştirme işlemi yapıldığında tetiklenen event’tir.
+
+        - `shouldComponentUpdate()`: Props veya state değiştiği anda component'in baştan render edilip edilmemesi gerektiği manual olarak belirlenebilir. Bu event, sadece boolen değer döndürür. True ise component baştan render edilir false ise render edilmez.
+
+        - `componentWillUpdate()`: Yeni props veya state alındığında render edilmeden hemen önce çağrılır.
+
+        - `componentDidUpdate()`: Güncelleme gerçekleştikten hemen sonra çağrılır. Bu fonksiyon ilk render için çağrılmaz.
+
+    - Component unmounting edilirken yani DOM'dan kaldırılırken kullanılan 1 metot vardır. Bu:
+
+        - `componentWillUnmount()`: Bir component unmounted veya destroyed edilmeden hemen önce çağrılır. Bu fonksiyonda, zamanlayıcıları geçersiz kılma, network isteklerini iptal etme veya componentDidMount() fonksiyonu ile oluşturulan abonelikleri temizleme gibi işlemler yapılabilir. Bunu unutma.
+
+- **Lifecycle** metotları, **React** içerisine build-in olarak gelen `useEffect` hook'u sayesinde kullanılır. İlk parametre olarak, event gerçekleştiği anda ne olacağının tanımlandığı **callback** fonkiyonu alır; ikinci parametre olarak ise dependency array alır. Eğer bu array boş bırakılırsa component'in mount olma anı yakalanır. Ama bir state'in mount olma anı yakalanmak istenirse, array elemanı olarak state'in adı yazılmalıdır.
+
+- React component'lerindeki gereksiz render'ları önlemek ve böylece component'in performansını artırmak için **memorizing** yöntemleri kullanılmaktadır. 
+
+    - İlk kullanılan yöntem `React.memo`'dur. Bir container'ın içerisindeki state'de herhangi bir değişiklik olduğunda component'in içerisindeki bütün elementler tekrar render edileceği için, aşağıdaki örnekteki gibi "Header" component'i de baştan render edilecektir. Bu da "Header" component'inin gereksiz render'ına sebep olmaktadır.
+    
+        ```js
+            import { useState } from "react"
+            import Header from "./components/Header"
+
+            function App() {
+                const [number, setNumber] = useState(0)
+
+                return (
+                    <div className="App">
+                        <Header />
+
+                        <hr />
+
+                        <h1>{number}</h1>
+                        <button onClick={() => setNumber(number + 1)}>Click</button>
+                    </div>
+                )
+            }
+
+            export default App
+        ```
+        Bunu engellemek için de aşağıdaki gibi component `export` edilirken `React.memo` ile sarmalanmalıdır. Böylece state değiştiğinde, return altındaki Header elementi de gereksiz yere `render` edilmeyecektir. Fakat Header component'ine prop olarak state değişkeni verilirse `render` işlemi tekrardan onu da kapsar.
+
+        ```js
+            // Header component
+            function Header() {
+                return  <div>Header</div>;
+            }
+
+            export default React.memo(Header);
+        ```
+    
+    - Kullanılabilecek ikinci yöntem `useMemo` hook'udur. `useEffect` hook'u ile aynı kullanıma sahiptir. İlk parametre olarak **callback** fonksiyonu, ikinci parametre olarak da **dependency array** alır. 
+    
+        - `React.memo` ile sarmalanan bir component'e gönderilen prop'lar değişmediği sürece **re-render** edilmezdi. Bu doğru. Fakat göderilen prop değişkeninin tipi `object` ya da `array` olduğunda, her render işleminde bu değişkenler tekrar tanımlanacağından hafızadaki adresleri değişecektir. Bu da, React.memo'nun prop değişkeninin değiştiğini düşenmesine sebep olarak component'in tekrar render edilmesine sebep olacaktır. Bu nedenle `useMemo` hook'u kullanılır.
+
+            - Javascript ile tanımlanan her object ya da array değişkenlerinin bellek üzerindeki referansları farklıdır. Aşağıdaki örnekteki gibi iki boş object değişkeni birbirine eşit değildir. Çünkü bellekteki adresleri farklıdır. Aynısı array tipi değişkenler için de geçerlidir.
+
+                ```js
+                {} === {}
+                // return false
+                    
+                [] === []
+                // return false
+                ```
+            
+            Örnek kullanımı aşağıdaki gibidir. Dependency array olarak verilecek değişken ile de, o değişken her değiştiğinde Header değişkeni de re-render edilir.
+            ```js
+                import { useState } from "react"
+                import Header from "./components/Header"
+
+                function App() {
+                    const [number, setNumber] = useState(0)
+
+                    const data = useMemo(() => {
+                        return { name: "Abdullah" }
+                    }, [])
+
+                    return (
+                        <div className="App">
+                            <Header data={data} />
+
+                            <hr />
+
+                            <h1>{number}</h1>
+                            <button onClick={() => setNumber(number + 1)}>Click</button>
+                        </div>
+                    )
+                }
+
+                export default App
+            ```
+    
+    - Üçüncü yöntem ise `useCallback` hook'u. `useMemo` nun aksine aldığı işlevin sonucunu saklamak yerine işlevin kendisini saklar. `Dependency` olarak verilen değerleri değişmediği sürece de sakladığı işlevi döndürür.
+
+        - Bunun faydası, compenent içerisinde tanımlanan işlevler, o component yeniden `render` edildiğinde yeniden tanımlanır ve farklı bir referansa sahip olur. Bu yüzden bu işlevler `props` olarak iletildiğinde aslında işlev değişmemesine rağmen iletildiği bileşenin yeniden `render` edilmesine neden olurlar.
+
+        ```js
+            import { useState, useCallback } from "react"
+            import Header from "./components/Header"
+
+            function App() {
+                const [number, setNumber] = useState(0)
+
+                const increment = useCallback(() => {
+                    setNumber((prevState) => prevState + 1)
+                }, [])
+
+                return (
+                    <div className="App">
+                        <Header increment={increment} />
+
+                        <hr />
+
+                        <h1>{number}</h1>
+                    </div>
+                )
+            }
+
+            export default App
+        ```
+
+        ```js
+            // Header component
+            function Header({ increment }) {
+                return  (
+                    <div>
+                        Header
+                        <button onClick={increment}></button>
+                    </div>;
+                )
+            }
+
+            export default React.memo(Header);
+        ```
+
+## Context API
